@@ -27,24 +27,51 @@ Seguido de esto necesitamos encontrar la mejor solución que úse la menor canti
 *Por eso esta primera solución es una estrategia de análisis top-down (de arriba hacia abajo)*
 
 ```py
-def makeChange(monedas, cantidad):
-    if cantidad == 0:
-        print("amount === 0")
+#monedas debe ser un arreglo de enteros, cantidad debe ser un entero no menor que 0
+def makeChange(monedas, cantidad): 
+    if cantidad == 0: #Validación cuando lleguemos a la cantidad 0
         return []
-    if cantidad < 0:
-        print("amount < 0")
+    if cantidad < 0: #Validación para saber que llegamos a una cantidad negativa que no se puede pagar
         return None
-    resultadoOptimo = None
-    for moneda in monedas:
-        combinacion = makeChange(monedas, cantidad - moneda)
-        if combinacion != None:
-            candidata = combinacion + [moneda]
-            if (resultadoOptimo is None or
-                    len(candidata) < len(resultadoOptimo)):
+    resultadoOptimo = None #declaramos e inicializamos el resultadoOptimo que retornaremos
+    for moneda in monedas: #iteramos sobre cada moneda
+        #llamamos a makeChange para obtener una posible solución
+        #Restamos el valor actual de moneda para dividir en subproblemas
+        combinacion = makeChange(monedas, cantidad - moneda) #Aqui podemos obtener [], None o una posible combinación
+        if combinacion != None: #Validación para saber que es una posible combinacion
+            candidata = combinacion + [moneda] #Validación para saber que es una posible combinacion
+            #Comparamos si la solucion candidata es mejor que el resultadoOptimo actual lo remplazamos
+            if (resultadoOptimo is None or len(candidata) < len(resultadoOptimo)):
                 resultadoOptimo = candidata
     return resultadoOptimo
 ```
 
-![subPrograms](./images/Ejemplo1.jpg)
+![ejemplo1](./images/Ejemplo1.jpg)
+![img](https://raw.githubusercontent.com/Tono2007/Change-making-problem/main/images/Ejemplo1.jpg)
 
 Notemos que tenemos subproblemas que se repiten, dada la recursividad y el uso de todas las combinaciones posibles, esta solucion tiene una complejidad exponencial y poco rendimiento.
+
+### Ejemplo 1/version 2:
+Podemos guardar los resultados para reducir la complejidad a O(nv), n es la cantidad de monedas y v ka cantidad de pasos, para esto podemos utilizar el módulo functools que ns proporciona un método llamado lru_cache que recibe una función de la cual vamos a poder guardar el resultado o lo que retorna, de esta forma si llamamos a una determinada función con los mismos argunmentos varias veces retornan el valor guardado en memoria sin ejecutar dicha función.
+
+```py
+from functools import lru_cache #import del módulo
+def makeChange(monedas, cantidad): #Necesitamos una funcion como envolvente para manejar las monedas
+    @lru_cache(maxsize=None, typed=False) #inicializamos la cache sin límite para la función helper
+    def helper(cantidad): #Guardamos el resultado para cada cantidad
+        if cantidad == 0:  
+            return []
+        if cantidad < 0:  
+            return None
+        resultadoOptimo = None  
+        for moneda in monedas:  
+            combinacion = helper(cantidad - moneda)  
+            if combinacion != None:  
+                candidata = combinacion + [moneda]  
+                if (resultadoOptimo is None or len(candidata) < len(resultadoOptimo)):
+                    resultadoOptimo = candidata
+        return resultadoOptimo
+    return helper(cantidad)
+```
+![ejemplo2](./images/Ejemplo2.jpg)
+![img](https://raw.githubusercontent.com/Tono2007/Change-making-problem/main/images/Ejemplo1.jpg)
