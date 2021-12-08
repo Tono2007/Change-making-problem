@@ -129,20 +129,20 @@ para pagar la cantidad de 500 teniendo monedas de 100, 200 y 300 va de 1 hasta 5
 
 ### Tiempos de ejecución y complejidad: :hourglass_flowing_sand:
 
-**Solución 1** O(n<sup>v</sup>) n = numero de monedas, v = cantidad a pagar, complejidad exponencial
-**Solución 1** O(nv) n = numero de monedas, v = pasos, complejidad polinomial
-**Solución 1** O(nv) n = numero de monedas, v = pasos a pagar, complejidad polinomial
+- **Solución 1** O(n<sup>v</sup>) n = numero de monedas, v = cantidad a pagar, complejidad exponencial
+- **Solución 1** O(nv) n = numero de monedas, v = pasos, complejidad polinomial
+- **Solución 1** O(nv) n = numero de monedas, v = pasos a pagar, complejidad polinomial
 
 Calculando tiempos con diferentes casos
-| Monedas | Cantidad a pagarr | Solución 1 | Solución 1 con cache | Solución 2
+| Monedas | Cantidad a pagarr | Solución 1 | Solución 1 con cache | Solución 2 |
 | ------------- | ------------- |--------------|---------|
-| Monedas:[1,2,5,10,20] | 30 | 14.8235049s | 0.0009131 | 0.0009970
-| Monedas:[1,2,5,10,20] | 35 | 223.911s/3:43| 0.0009989 | 0.0009911
-| Monedas:[1,2,5,10,20] | 30 | 14.8235049s | 0.0009131 | 0.0009970
-| Monedas:[1,2,5,10,20] | 30 | 14.8235049s | 0.0009131 | 0.0009970
-| Monedas:[1,2,5,10,20] | 30 | 14.8235049s | 0.0009131 | 0.0009970
-| Monedas:[1,2,5,10,20] | 30 | 14.8235049s | 0.0009131 | 0.0009970
-| Monedas:[1,2,5,10,20] | 30 | 14.8235049s | 0.0009131 | 0.0009970
+| Monedas:[1,2,5,10,20] | 30 | 14.8235049s | 0.0009131 | 0.0009970 |
+| Monedas:[1,2,5,10,20] | 35 | 223.911s/3:43| 0.0009989 | 0.0009911 |
+| Monedas:[3,6,5] | 75 | 3.3575 | 0.001060| 0.000975 |
+| Monedas:[3,6,8,10,13,15,21,35] | 850 | - | 0.004909| 0.002993 |
+| Monedas:[3,6,8,10,13,15,17,21] | 30 | - | 0.004990 | 0.003814 |
+| Monedas:[1,3,5] | 449 | - | 0.001986| 0.004988 |
+| Monedas:[1,3,5] | 500 | - | maximum recursion depth exceeded in comparison| 0.004988 |
 
 ##
 

@@ -2,10 +2,17 @@ import solucion1
 import solucion2
 import time
 
-monedas = [1, 2, 5, 10, 20]
-cantidad = 35
+monedas = [1, 3, 5]
+cantidad = 500
 print(f"Monedas: {monedas}")
 print(f"Cantidad: {cantidad}\n\n\n")
+
+
+""" begin = time.time()
+print(f"Solucion 1 resultado: {solucion1.makeChange1(monedas, cantidad)}")
+end = time.time()
+print(f"Tiempo Solucion1: {end-begin}\n")
+ """
 
 
 begin = time.time()
@@ -19,9 +26,3 @@ begin = time.time()
 print(f"Solucion 2 resultado: {solucion2.makeChange2(monedas, cantidad)}")
 end = time.time()
 print(f"Tiempo Solucion2: {end-begin}\n")
-
-
-begin = time.time()
-print(f"Solucion 1 resultado: {solucion1.makeChange1(monedas, cantidad)}")
-end = time.time()
-print(f"Tiempo Solucion1: {end-begin}\n")
