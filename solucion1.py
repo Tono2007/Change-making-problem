@@ -1,6 +1,6 @@
 from functools import lru_cache
 # Solucion 1
-# monedas debe ser un arreglo de enteros, cantidad debe ser un entero no menor que 0
+# monedas debe ser una lista de enteros, cantidad debe ser un entero no menor que 0
 def makeChange1(monedas, cantidad):
     if cantidad == 0:  # Validación cuando lleguemos a la cantidad 0
         return []
@@ -20,7 +20,7 @@ def makeChange1(monedas, cantidad):
                 resultadoOptimo = candidata
     return resultadoOptimo
 
-#con cache
+#Solución1 con cache
 def makeChange11(monedas, cantidad):
     @lru_cache(maxsize=None)
     def helper(cantidad):
