@@ -16,16 +16,16 @@ Donde la mejor combinación es {5,5} que usa la menor cantidad de monedas
 ## Consideraciones
 
 - Este problema supone que todas las monedas están disponibles infinitamente.
-- Dado el caso donde la cantidad de dinero es 0 el resultado sera una lista vacia [ ]
-- Dado el caso donde no es posible pagar la cantidad con las monedas proporcionadas retornar nulo. Ejemplo cantidad=5 monedas[2,4]
+- Dado el caso donde la cantidad de dinero es 0 el resultado será una lista vacía [ ]
+- Dado el caso donde no es posible pagar la cantidad con las monedas proporcionadas retornar nulo. Ejemplo cantidad=5 monedas [2,4]
 
-## Solución 1
+## Solución 1 (top-down)
 
 La primera solución contempla todas las posibles combinaciones, podemos implementarla dividiendo en pequeños subproblemas y aplicando recursividad.
 
-Por cada moneda hacemos una resta de la cantidad de dinero menos el valor de la moneda de esta forma obtenemos un punto de inicio de cada combinación y dividimos el problema en subproblemas. Aqui podemos aplicar recursividad y continuar haciendo las restas mientras la cantidad a pagar disminuye y llega a 0, de esta forma obtenemos todas las posibles combinaciones. En esta parte necesitamos hacer una validación para detener la iteración cuando la cantidad llegue a igual o menor que 0 (Si llega a 0 sabemos que es una posible solución).
+Por cada moneda hacemos una resta de la cantidad de dinero menos el valor de la moneda de esta forma obtenemos un punto de inicio de cada combinación y dividimos el problema en subproblemas. Aquí podemos aplicar recursividad y continuar haciendo las restas mientras la cantidad a pagar disminuye y llega a 0, de esta forma obtenemos todas las posibles combinaciones. En esta parte necesitamos hacer una validación para detener la iteración cuando la cantidad llegue a igual o menor que 0 (Si llega a 0 sabemos que es una posible solución).
 
-Ejemplo de divición de subproblemas para el caso, monedas: [1,2,3] y cantidad de 5
+Ejemplo de división de subproblemas para el caso, monedas: [1,2,3] y cantidad de 5
 
 <!---
 ![subPrograms](./images/subPrograms.png)
@@ -33,7 +33,7 @@ Ejemplo de divición de subproblemas para el caso, monedas: [1,2,3] y cantidad d
 
 ![img](images/subPrograms.png)
 
-Seguido de esto necesitamos encontrar la mejor solución que úse la menor cantidad de monedas, necesitamos hacer una comparacion para obtener la mejor solución de cada suproblema, guardarla y retornar la combinacion con menor cantidad de monedas por cada nivel (cada vez que disminuimos la cantidad a pagar).
+Seguido de esto necesitamos encontrar la mejor solución que use la menor cantidad de monedas, necesitamos hacer una comparación para obtener la mejor solución de cada subroblema, guardarla y retornar la combinación con menor cantidad de monedas por cada nivel (cada vez que disminuimos la cantidad a pagar).
 _Por eso esta primera solución es una estrategia de análisis top-down (de arriba hacia abajo)_
 
 ```py
@@ -62,11 +62,11 @@ def makeChange(monedas, cantidad):
 
 ![img](images/Ejemplo1.jpg)
 
-Notemos que tenemos subproblemas que se repiten, dada la recursividad y el uso de todas las combinaciones posibles, esta solucion tiene una complejidad exponencial y poco rendimiento.
+Notemos que tenemos subproblemas que se repiten, dada la recursividad y el uso de todas las combinaciones posibles, esta solución tiene una complejidad exponencial y poco rendimiento.
 
 ### Solución 1/versión 2:
 
-Podemos guardar los resultados para reducir la complejidad a O(nv), n es la cantidad de monedas y v la cantidad de pasos, para esto podemos utilizar el módulo functools que nos proporciona un método llamado lru_cache que recibe una función de la cual vamos a poder guardar el resultado o lo que retorna, de esta forma si llamamos a una determinada función con los mismos argunmentos varias veces retornan el valor guardado en memoria sin ejecutar dicha función.
+Podemos guardar los resultados para reducir la complejidad a O(nv), n es la cantidad de monedas y v la cantidad de pasos, para esto podemos utilizar el módulo functools que nos proporciona un método llamado **lru_cache** que recibe una función de la cual vamos a poder guardar el resultado o lo que retorna, de esta forma si llamamos a una determinada función con los mismos argumentos varias veces retornan el valor guardado en memoria sin ejecutar dicha función.
 
 ```py
 from functools import lru_cache #import del módulo
@@ -94,9 +94,9 @@ def makeChange(monedas, cantidad): #Necesitamos una funcion como envolvente para
 
 ![img](images/Ejemplo2.jpg)
 
-## Solucion 2, bottom-up O(nv)
+## Solución 2, bottom-up O(nv)
 
-La segunda solución contempla la estrategia de análisis bottom-up, guiandonos de la primera solución empezaremos con la cantidad de 0 agregando las posibles combinaciones de monedas hasta llegar a la cantidad final.
+La segunda solución contempla la estrategia de análisis bottom-up, guiándonos de la primera solución empezaremos con la cantidad de 0 agregando las posibles combinaciones de monedas hasta llegar a la cantidad final.
 
 ```py
 def makeChange2(monedas, cantidad):
@@ -125,16 +125,16 @@ def makeChange2(monedas, cantidad):
 ![img](images/Solucion2Ejemplo2.jpg)
 
 Esta solución es mejor que la primera porque es iterativa y evita las llamadas recursivas, pero es poco eficiente para casos donde la cantidad sea grande, porque la cantidad a evaluar va en uno en uno, por ejemplo:
-para pagar la cantidad de 500 teniendo monedas de 100, 200 y 300 va de 1 hasta 500, ademas se contemplan cantidades que no se pueden pagar como 103.
+para pagar la cantidad de 500 teniendo monedas de 100, 200 y 300 va de 1 hasta 500, además se contemplan cantidades que no se pueden pagar como 103.
 
 ### Tiempos de ejecución y complejidad: :hourglass_flowing_sand:
 
-- **Solución 1** O(n<sup>v</sup>) n = numero de monedas, v = cantidad a pagar, complejidad exponencial
-- **Solución 1** O(nv) n = numero de monedas, v = pasos, complejidad polinomial
-- **Solución 1** O(nv) n = numero de monedas, v = pasos a pagar, complejidad polinomial
+- **Solución 1** O(n<sup>v</sup>) n = número de monedas, v = cantidad a pagar, complejidad exponencial
+- **Solución 1** O(nv) n = número de monedas, v = pasos, complejidad polinomial
+- **Solución 1** O(nv) n = número de monedas, v = pasos, complejidad polinomial
 
 Calculando tiempos con diferentes casos
-| Monedas | Cantidad a pagarr | Solución 1 | Solución 1 con cache | Solución 2 |
+| Monedas | Cantidad a pagar | Solución 1 | Solución 1 con cache | Solución 2 |
 | ------------- | ------------- |--------------|---------|--------|
 | Monedas:[1,2,5,10,20] | 30 | 14.8235049s | 0.0009131 | 0.0009970 |
 | Monedas:[1,2,5,10,20] | 35 | 223.911s/3:43| 0.0009989 | 0.0009911 |
