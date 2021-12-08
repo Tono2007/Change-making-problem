@@ -1,4 +1,4 @@
-# Change-making-problem / Cambio de monedas
+# Change-making-problem / Cambio de monedas :moneybag:
 
 ## Entendiendo el problema
 
@@ -31,7 +31,7 @@ Ejemplo de divición de subproblemas para el caso, monedas: [1,2,3] y cantidad d
 ![subPrograms](./images/subPrograms.png)
 -->
 
-![img](https://raw.githubusercontent.com/Tono2007/Change-making-problem/main/images/subPrograms.png)
+![img](images/subPrograms.png)
 
 Seguido de esto necesitamos encontrar la mejor solución que úse la menor cantidad de monedas, necesitamos hacer una comparacion para obtener la mejor solución de cada suproblema, guardarla y retornar la combinacion con menor cantidad de monedas por cada nivel (cada vez que disminuimos la cantidad a pagar).
 _Por eso esta primera solución es una estrategia de análisis top-down (de arriba hacia abajo)_
@@ -60,7 +60,7 @@ def makeChange(monedas, cantidad):
 ![ejemplo1](./images/Ejemplo1.jpg)
 -->
 
-![img](https://raw.githubusercontent.com/Tono2007/Change-making-problem/main/images/Ejemplo1.jpg)
+![img](images/Ejemplo1.jpg)
 
 Notemos que tenemos subproblemas que se repiten, dada la recursividad y el uso de todas las combinaciones posibles, esta solucion tiene una complejidad exponencial y poco rendimiento.
 
@@ -92,7 +92,7 @@ def makeChange(monedas, cantidad): #Necesitamos una funcion como envolvente para
 ![ejemplo2](./images/Ejemplo2.jpg)
 -->
 
-![img](https://raw.githubusercontent.com/Tono2007/Change-making-problem/main/images/Ejemplo2.jpg)
+![img](images/Ejemplo2.jpg)
 
 ## Solucion 2, bottom-up O(nv)
 
@@ -127,9 +127,22 @@ def makeChange2(monedas, cantidad):
 Esta solución es mejor que la primera porque es iterativa y evita las llamadas recursivas, pero es poco eficiente para casos donde la cantidad sea grande, porque la cantidad a evaluar va en uno en uno, por ejemplo:
 para pagar la cantidad de 500 teniendo monedas de 100, 200 y 300 va de 1 hasta 500, ademas se contemplan cantidades que no se pueden pagar como 103.
 
-### Tiempos de ejecución y complejidad:
+### Tiempos de ejecución y complejidad: :hourglass_flowing_sand:
 
-**Solución 1** O(n)
+**Solución 1** O(n<sup>v</sup>) n = numero de monedas, v = cantidad a pagar, complejidad exponencial
+**Solución 1** O(nv) n = numero de monedas, v = pasos, complejidad polinomial
+**Solución 1** O(nv) n = numero de monedas, v = pasos a pagar, complejidad polinomial
+
+Calculando tiempos con diferentes casos
+| Monedas | Cantidad a pagarr | Solución 1 | Solución 1 con cache | Solución 2
+| ------------- | ------------- |--------------|---------|
+| Monedas:[1,2,5,10,20] | 30 | 14.8235049s | 0.0009131 | 0.0009970
+| Monedas:[1,2,5,10,20] | 35 | 223.911s/3:43| 0.0009989 | 0.0009911
+| Monedas:[1,2,5,10,20] | 30 | 14.8235049s | 0.0009131 | 0.0009970
+| Monedas:[1,2,5,10,20] | 30 | 14.8235049s | 0.0009131 | 0.0009970
+| Monedas:[1,2,5,10,20] | 30 | 14.8235049s | 0.0009131 | 0.0009970
+| Monedas:[1,2,5,10,20] | 30 | 14.8235049s | 0.0009131 | 0.0009970
+| Monedas:[1,2,5,10,20] | 30 | 14.8235049s | 0.0009131 | 0.0009970
 
 ##
 
